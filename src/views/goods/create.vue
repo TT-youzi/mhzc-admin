@@ -391,7 +391,7 @@ export default {
   computed: {
     headers() {
       return {
-        'X-Litemall-Admin-Token': getToken()
+        'MHZC-Admin-Token': getToken()
       }
     }
   },
