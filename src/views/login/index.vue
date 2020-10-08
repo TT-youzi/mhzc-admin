@@ -1,6 +1,13 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
         <h3 class="title">管理员登录</h3>
       </div>
@@ -8,19 +15,51 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" tabindex="1" auto-complete="on" placeholder="管理员账户" />
+        <el-input
+          v-model="loginForm.username"
+          name="username"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+          placeholder="管理员账户"
+        />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input v-model="loginForm.password" :type="passwordType" name="password" auto-complete="on" tabindex="2" show-password placeholder="管理员密码" @keyup.enter.native="handleLogin" />
+        <el-input
+          v-model="loginForm.password"
+          :type="passwordType"
+          name="password"
+          auto-complete="on"
+          tabindex="2"
+          show-password
+          placeholder="管理员密码"
+          @keyup.enter.native="handleLogin"
+        />
       </el-form-item>
+      <!-- 验证码 -->
+      <div class="editCode">
+        <el-form-item prop="password" class="editCode-formItem">
+          <el-input
+            v-model="loginForm.password"
+            placeholder="管理员密码"
+            @keyup.enter.native="handleLogin"
+          />
+        </el-form-item>
+        <el-button class="editCode-btn">发送验证码</el-button>
+      </div>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+      >登录</el-button>
 
-      <div style="position:relative">
+      <div style="position: relative">
         <div class="tips">
           <span> 超级管理员用户名: admin123</span>
           <span> 超级管理员用户名：admin123</span>
@@ -37,7 +76,8 @@
     </el-form>
 
     <div class="copyright">
-      Copyright © 2020 xxx.com 版权所有 <a href="http://www.example.com/">沪ICP备xxx号</a>
+      Copyright © 2020 xxx.com 版权所有
+      <a href="http://www.example.com/">沪ICP备xxx号</a>
     </div>
   </div>
 </template>
@@ -59,7 +99,9 @@ export default {
         password: 'admin123'
       },
       loginRules: {
-        username: [{ required: true, message: '管理员账户不允许为空', trigger: 'blur' }],
+        username: [
+          { required: true, message: '管理员账户不允许为空', trigger: 'blur' }
+        ],
         password: [
           { required: true, message: '管理员密码不允许为空', trigger: 'blur' },
           { validator: validatePassword, trigger: 'blur' }
@@ -76,7 +118,6 @@ export default {
       },
       immediate: true
     }
-
   },
   created() {
     // window.addEventListener('hashchange', this.afterQRScan)
@@ -86,19 +127,25 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      console.log(this.redirect)
+      this.$refs.loginForm.validate((valid) => {
         if (valid && !this.loading) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: this.redirect || '/' })
-          }).catch(response => {
-            this.$notify.error({
-              title: '失败',
-              message: response.data.errmsg
+          this.$store
+            .dispatch('LoginByUsername', this.loginForm)
+            .then(() => {
+              this.loading = false
+              this.$router.push({ path: '/admin' || '/' })
+
+              // this.$router.push({ path: this.redirect || "/" });
             })
-            this.loading = false
-          })
+            .catch((response) => {
+              this.$notify.error({
+                title: '失败',
+                message: response.data.errmsg
+              })
+              this.loading = false
+            })
         } else {
           return false
         }
@@ -112,8 +159,8 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -156,9 +203,9 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
@@ -204,6 +251,17 @@ $light_gray:#eee;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+  }
+  .editCode{
+    display: flex;
+    .editCode-formItem{
+      width: 70%;
+    }
+    .editCode-btn{
+      height: 48px;
+      margin-top: 1px;
+      width: 30%;
     }
   }
   .copyright {
