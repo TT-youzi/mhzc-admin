@@ -1,7 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <!-- <sidebar class="sidebar-container" /> -->
-    <div class="admin-left" />
+    <admin-sidebar class="sidebar-container"></admin-sidebar>
     <div class="main-container">
       <navbar />
       <tags-view />
@@ -85,7 +84,7 @@
 </template>
 
 <script>
-import { Navbar, AppMain, TagsView } from './components'
+import { Navbar, Sidebar, AdminSidebar, AppMain, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { fetchList, userDetail, updateUser } from '@/api/user'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -95,6 +94,8 @@ export default {
     Navbar,
     AppMain,
     TagsView,
+    Sidebar,
+    AdminSidebar,
     Pagination
   },
   mixins: [ResizeMixin],
