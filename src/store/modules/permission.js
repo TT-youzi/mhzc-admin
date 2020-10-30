@@ -21,7 +21,7 @@ function hasPermission(perms, route) {
 function filterAsyncRoutes(routes, perms) {
   const res = []
 
-  routes.forEach(route => {
+  routes.forEach(route => { 
     const tmp = { ...route }
     if (tmp.children) {
       tmp.children = filterAsyncRoutes(tmp.children, perms)
@@ -45,8 +45,10 @@ const permission = {
   },
   mutations: {
     SET_ROUTES: (state, routes) => {
+      console.log(routes)
       state.addRoutes = routes
       state.routes = constantRoutes.concat(routes)
+
     }
   },
   actions: {

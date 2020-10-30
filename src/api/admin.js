@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+//列表
 export function listAdmin(query) {
   return request({
     url: '/admin/list',
@@ -7,12 +7,20 @@ export function listAdmin(query) {
     params: query
   })
 }
-
+//新增
 export function createAdmin(data) {
   return request({
     url: '/admin/create',
     method: 'post',
     data
+  })
+}
+//详情
+export function getOneAdmin(query) {
+  return request({
+    url: '/admin/read',
+    method: 'get',
+    params: query
   })
 }
 

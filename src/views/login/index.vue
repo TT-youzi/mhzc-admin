@@ -57,7 +57,8 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-      >登录</el-button>
+        >登录</el-button
+      >
 
       <div style="position: relative">
         <div class="tips">
@@ -84,40 +85,40 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('管理员密码长度应大于6'))
+        callback(new Error("管理员密码长度应大于6"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       loginForm: {
-        username: 'admin123',
-        password: 'admin123'
+        username: "admin123",
+        password: "admin123",
       },
       loginRules: {
         username: [
-          { required: true, message: '管理员账户不允许为空', trigger: 'blur' }
+          { required: true, message: "管理员账户不允许为空", trigger: "blur" },
         ],
         password: [
-          { required: true, message: '管理员密码不允许为空', trigger: 'blur' },
-          { validator: validatePassword, trigger: 'blur' }
-        ]
+          { required: true, message: "管理员密码不允许为空", trigger: "blur" },
+          { validator: validatePassword, trigger: "blur" },
+        ],
       },
-      passwordType: 'password',
-      loading: false
-    }
+      passwordType: "password",
+      loading: false,
+    };
   },
   watch: {
     $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   created() {
     // window.addEventListener('hashchange', this.afterQRScan)
@@ -127,32 +128,35 @@ export default {
   },
   methods: {
     handleLogin() {
-      console.log(this.redirect)
+      console.log(this.redirect);
       this.$refs.loginForm.validate((valid) => {
         if (valid && !this.loading) {
-          this.loading = true
+          this.loading = true;
           this.$store
-            .dispatch('LoginByUsername', this.loginForm)
-            .then(() => {
-              this.loading = false
-              this.$router.push({ path: '/admin' || '/' })
-
-              // this.$router.push({ path: this.redirect || "/" });
+            .dispatch("LoginByUsername", this.loginForm)
+            .then((res) => {
+              console.log(res);
+              this.loading = false;
+              if (res.data.data.type == "0") {
+                this.$router.push({ path: "/admin" || "/" });
+              } else if (res.data.data.type == "1") {
+                this.$router.push({ path: "/dashboard" || "/" });
+              }
             })
             .catch((response) => {
               this.$notify.error({
-                title: '失败',
-                message: response.data.errmsg
-              })
-              this.loading = false
-            })
+                title: "失败",
+                message: response.data.errmsg,
+              });
+              this.loading = false;
+            });
         } else {
-          return false
+          return false;
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -253,12 +257,12 @@ $light_gray: #eee;
       font-weight: bold;
     }
   }
-  .editCode{
+  .editCode {
     display: flex;
-    .editCode-formItem{
+    .editCode-formItem {
       width: 70%;
     }
-    .editCode-btn{
+    .editCode-btn {
       height: 48px;
       margin-top: 1px;
       width: 30%;

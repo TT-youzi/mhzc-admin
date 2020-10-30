@@ -17,13 +17,13 @@ export default {
     }
   },
   mounted() {
-    this.timer = setInterval(this.checkNotice, 30 * 1000)
+    // this.timer = setInterval(this.checkNotice, 30 * 1000)
   },
   beforeDestroy() {
     clearInterval(this.timer)
   },
   created() {
-    this.checkNotice()
+    // this.checkNotice()
   },
   methods: {
     click() {
