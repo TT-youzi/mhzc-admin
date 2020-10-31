@@ -337,7 +337,7 @@ export default {
         managerIds: [],
       },
       list: [],
-      deleteList:[],
+      deleteList: [],
       total: 0,
       listQuery: {
         page: 1,
@@ -363,7 +363,10 @@ export default {
   computed: {},
   created() {
     this.getList();
-    this.getManagerList();
+    let currUserInfo = JSON.parse(sessionStorage.getItem("currUserInfo"));
+    if (currUserInfo.type == "0") {
+      this.getManagerList();
+    }
   },
   methods: {
     handleDelete(row) {

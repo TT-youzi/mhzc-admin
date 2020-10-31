@@ -63,15 +63,27 @@
       <div style="position: relative">
         <div class="tips">
           <span> 超级管理员用户名: admin123</span>
-          <span> 超级管理员用户名：admin123</span>
+          <span> 超级管理员密码：admin123</span>
         </div>
         <div class="tips">
-          <span> 商城管理员用户名: mall123</span>
-          <span> 商城管理员用户名：mall123</span>
+          <span> 超级管理员用户名: admin1</span>
+          <span> 超级管理员密码：123456</span>
         </div>
         <div class="tips">
-          <span> 推广管理员用户名: promotion123</span>
-          <span> 推广管理员用户名：promotion123</span>
+          <span> 超级管理员用户名: admin2</span>
+          <span> 超级管理员密码：123456</span>
+        </div>
+        <div class="tips">
+          <span> 商户1用户名: shanghu1</span>
+          <span> 商户1密码：111111</span>
+        </div>
+        <div class="tips">
+          <span> 商户2用户名: shanghu2</span>
+          <span> 商户2密码：111111</span>
+        </div>
+        <div class="tips">
+          <span> 规则：</span>
+          <span> 管理员登陆 新建角色 授予权限 新建商户账号 给账号设置角色 创建商城 绑定商户 切换商户账号登陆 点击商城进入商城管理</span>
         </div>
       </div>
     </el-form>
@@ -138,11 +150,12 @@ export default {
               console.log(res);
               this.loading = false;
               sessionStorage.setItem("currUserInfo",JSON.stringify(res.data.data))
-              if (res.data.data.type == "0") {
-                this.$router.push({ path: "/admin" || "/" });
-              } else if (res.data.data.type == "1") {
-                this.$router.push({ path: "/dashboard" || "/" });
-              }
+              this.$router.push({ path: "/admin" || "/" });
+              // if (res.data.data.type == "0") {
+              //   this.$router.push({ path: "/admin" || "/" });
+              // } else if (res.data.data.type == "1") {
+              //   this.$router.push({ path: "/dashboard" || "/" });
+              // }
             })
             .catch((response) => {
               this.$notify.error({
