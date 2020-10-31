@@ -60,6 +60,14 @@ export default {
       }
     }
   },
+  created() {
+    // let currUserInfo = JSON.parse( sessionStorage.getItem('currUserInfo'))
+    // if(currUserInfo.type == '1'){
+    //   this.visitedViews[0].meta.affix = true
+    // }else{
+    //   this.visitedViews[0].meta.affix = false
+    // }
+  },
   mounted() {
     this.initTags()
     this.addTags()

@@ -96,8 +96,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin123",
-        password: "admin123",
+        username: "admin1",
+        password: "123456",
       },
       loginRules: {
         username: [
@@ -137,6 +137,7 @@ export default {
             .then((res) => {
               console.log(res);
               this.loading = false;
+              sessionStorage.setItem("currUserInfo",JSON.stringify(res.data.data))
               if (res.data.data.type == "0") {
                 this.$router.push({ path: "/admin" || "/" });
               } else if (res.data.data.type == "1") {

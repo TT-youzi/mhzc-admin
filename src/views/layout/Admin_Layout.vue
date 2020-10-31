@@ -337,6 +337,7 @@ export default {
         managerIds: [],
       },
       list: [],
+      deleteList:[],
       total: 0,
       listQuery: {
         page: 1,
