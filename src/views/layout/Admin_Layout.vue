@@ -64,6 +64,13 @@
               @click="handleDownload"
               >导出</el-button
             >
+            <el-button
+              class="filter-item"
+              type="primary"
+              icon="el-icon-download"
+              @click="handleOpen"
+              >选择图片</el-button
+            >
           </div>
           <el-tab-pane label="小程序商城管理" name="first">
             <!-- 查询结果 -->
@@ -81,14 +88,12 @@
                 label="序号"
                 width="50"
               />
-              <el-table-column align="center" label="小程序ID" prop="appId" />
+              <el-table-column align="center" label="小程序ID" prop="appletId" />
               <el-table-column align="center" label="商城名称" width="140">
                 <template slot-scope="scope">
-                  <router-link to="/dashboard">
-                    <el-dropdown-item>
-                      {{ scope.row.mallName }}
-                    </el-dropdown-item>
-                  </router-link>
+                  <el-dropdown-item>
+                  <div @click="handleJump(scope.row)">{{ scope.row.mallName }}</div>  
+                  </el-dropdown-item>
                 </template>
               </el-table-column>
               <el-table-column
@@ -228,7 +233,7 @@
                 label="序号"
                 width="50"
               />
-              <el-table-column align="center" label="小程序ID" prop="appId" />
+              <el-table-column align="center" label="小程序ID" prop="appletId" />
               <el-table-column align="center" label="商城名称" width="140">
                 <template slot-scope="scope">
                   <router-link to="/dashboard">
@@ -369,6 +374,14 @@ export default {
     }
   },
   methods: {
+    handleOpen(){
+      
+    },
+    handleJump(row) {
+      console.log(row);
+      this.$router.push('/dashboard')
+      sessionStorage.setItem('currMallInfo',JSON.stringify(row))
+    },
     handleDelete(row) {
       mallDelete({ id: row.id })
         .then((response) => {

@@ -39,6 +39,10 @@ export default {
       }
     }
   },
+  created() {
+    let currMallInfo = JSON.parse(sessionStorage.getItem('currMallInfo'))
+    console.log(currMallInfo)
+  },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('closeSideBar', { withoutAnimation: false })
