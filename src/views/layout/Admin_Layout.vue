@@ -71,6 +71,7 @@
               @click="handleOpen"
               >选择图片</el-button
             >
+            <img-source v-if="visibleDialog" :isvisable="visibleDialog" :close="handleClose"></img-source>
           </div>
           <el-tab-pane label="小程序商城管理" name="first">
             <!-- 查询结果 -->
@@ -304,7 +305,7 @@
 </template>
 
 <script>
-import { Navbar, AppMain, TagsView } from "./components";
+import { Navbar, AppMain, TagsView, ImgSource } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
 import { fetchList, userDetail, updateUser } from "@/api/user";
 import {
@@ -324,6 +325,7 @@ export default {
     AppMain,
     TagsView,
     Pagination,
+    ImgSource
   },
   mixins: [ResizeMixin],
   data() {
@@ -363,6 +365,7 @@ export default {
       levelDic: ["普通用户", "VIP用户", "高级VIP用户"],
       statusDic: ["已关联appId", "禁用", "注销"],
       managerList: [],
+      visibleDialog: false
     };
   },
   computed: {},
@@ -375,7 +378,10 @@ export default {
   },
   methods: {
     handleOpen(){
-      
+      this.visibleDialog = true
+    },
+    handleClose(){
+      this.visibleDialog = false
     },
     handleJump(row) {
       console.log(row);
@@ -418,11 +424,9 @@ export default {
             let tempDelete = [];
             response.data.data.list.forEach((item) => {
               if (item.deleted == false) {
-                console.log(item);
                 temp.push(item);
               }
               if (item.deleted == true) {
-                console.log(item);
                 tempDelete.push(item);
               }
             });
